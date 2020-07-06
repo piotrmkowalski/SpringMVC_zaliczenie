@@ -6,6 +6,7 @@
         <title>Aktualizuj</title>
     </head>
 <body>
+
 <form   th:action="@{/aktualizuj}" th:object="${osoba}">
 
     <table>
@@ -29,6 +30,14 @@
             <td>     Podaj opis </td>
             <td><input name="opis" th:field="*{opis}">
                 <input type="hidden" name="id" th:field="*{id}"></td>
+        </tr>
+        <tr>
+            <td>     Podaj ulicę </td>
+            <td><input name="ulica"></td>
+        </tr>
+        <tr>
+            <td>     Podaj miasto </td>
+            <td><input name="miasto"></td>
         </tr>
         <tr>
             <td colspan="2">

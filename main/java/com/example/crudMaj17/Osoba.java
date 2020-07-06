@@ -16,19 +16,23 @@ public class Osoba {
     @Column(length = 2048)
     private String opis;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Adres adres;
+
     @Transient
     boolean  nowy;
 
-    public Osoba(String imie, String nazwisko, String telefon, String email, String opis, boolean nowy) {
+    public Osoba(String imie, String nazwisko, String telefon, String email, String opis, boolean nowy){//, Adres adres) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.telefon = telefon;
         this.email = email;
         this.opis = opis;
         this.nowy = nowy;
+        //this.adres = adres;
     }
 
-    public Osoba(Integer id, String imie, String nazwisko, String telefon, String email, String opis, boolean nowy) {
+    public Osoba(Integer id, String imie, String nazwisko, String telefon, String email, String opis, boolean nowy){//, Adres adres) {
         this.id = id;
         this.imie = imie;
         this.nazwisko = nazwisko;
@@ -36,6 +40,7 @@ public class Osoba {
         this.email = email;
         this.opis = opis;
         this.nowy = nowy;
+        //this.adres = adres;
     }
 
     public Osoba() {
@@ -97,6 +102,14 @@ public class Osoba {
         this.nowy = nowy;
     }
 
+    public Adres getAdres() {
+        return adres;
+    }
+
+    public void setAdres(Adres adres) {
+        this.adres = adres;
+    }
+
     @Override
     public String toString() {
         return "Osoba{" +
@@ -107,6 +120,7 @@ public class Osoba {
                 ", email='" + email + '\'' +
                 ", opis='" + opis + '\'' +
                 ", nowy=" + nowy +
+                ", adres=" + adres +
                 '}';
     }
 }

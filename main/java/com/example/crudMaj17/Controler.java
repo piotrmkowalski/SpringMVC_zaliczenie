@@ -5,15 +5,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class Controler {
 
     private OsobaRepo osobaRepo;
+    private AdresRepo adresRepo;
+
     @Autowired
-    public Controler(OsobaRepo osobaRepo) {
+    public Controler(OsobaRepo osobaRepo, AdresRepo adresRepo) {
         this.osobaRepo = osobaRepo;
+        this.adresRepo = adresRepo;
     }
+
+    @RequestMapping("/")
+    @ResponseBody
+    public String home(Model model) {
+        return "Zalogowanie się udało. <a href=\"http://localhost:8080/pokaz\">Strona główna: localhost:8080/pokaz</a>";
+    }
+
 
     @RequestMapping("/dodaj")
     public String dodajemyDane(
@@ -21,13 +32,19 @@ public class Controler {
             @RequestParam("nazwisko") String nazwisko,
             @RequestParam("telefon") String telefon,
             @RequestParam("email") String email,
-            @RequestParam("opis") String opis, Model model)
+            @RequestParam("opis") String opis,
+            @RequestParam("ulica") String ulica,
+            @RequestParam("miasto") String miasto, Model model)
             throws Exception {
 
         Osoba osoba = new Osoba(imie, nazwisko, telefon, email, opis, true);
+        Adres adres = new Adres(ulica, miasto);
         System.out.println(osoba);
+        osoba.setAdres(adres);
+        adresRepo.save(adres);
         osobaRepo.save(osoba);
         model.addAttribute("osoba", osoba);
+        model.addAttribute("adres", adres);
         return "Widok";
     }
 
@@ -62,13 +79,19 @@ public class Controler {
             @RequestParam("nazwisko") String nazwisko,
             @RequestParam("telefon") String telefon,
             @RequestParam("email") String email,
-            @RequestParam("opis") String opis, Model model)
+            @RequestParam("opis") String opis,
+            @RequestParam("ulica") String ulica,
+            @RequestParam("miasto") String miasto, Model model)
             throws Exception {
 
         Osoba osoba = new Osoba(id, imie, nazwisko, telefon, email, opis, true);
+        Adres adres = new Adres(ulica, miasto);
         System.out.println(osoba);
+        osoba.setAdres(adres);
+        adresRepo.save(adres);
         osobaRepo.save(osoba);
         model.addAttribute("osoba", osoba);
+        model.addAttribute("adres", adres);
         return "Widok";
 
     }
